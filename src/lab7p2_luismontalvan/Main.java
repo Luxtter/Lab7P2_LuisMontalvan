@@ -5,6 +5,7 @@
 package lab7p2_luismontalvan;
 
 import javax.swing.DefaultListModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
@@ -54,6 +55,7 @@ public class Main extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
 
@@ -70,6 +72,11 @@ public class Main extends javax.swing.JFrame {
         jLTamano.setText("Tamaño");
 
         jBtnA.setText("Añadir");
+        jBtnA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnAMouseClicked(evt);
+            }
+        });
 
         jLExtension.setText("jLabel3");
 
@@ -235,12 +242,22 @@ public class Main extends javax.swing.JFrame {
         jButton4.setFocusable(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
         jToolBar1.add(jButton4);
 
         jButton5.setText("Crear Archivo");
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
         jToolBar1.add(jButton5);
 
         jButton6.setText("Agregar a Destacados");
@@ -249,7 +266,13 @@ public class Main extends javax.swing.JFrame {
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton6);
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Mi Unidad");
+        jButton3.setText("Borrar Archivo/Carpeta");
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton3);
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane2.setViewportView(jTree1);
 
@@ -264,10 +287,10 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(bgLayout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 137, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,7 +335,39 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
         // TODO add your handling code here:
+        DefaultTreeModel modeloARBOL
+                    = (DefaultTreeModel) jTree1.getModel();
+            DefaultMutableTreeNode raiz
+                    = (DefaultMutableTreeNode) modeloARBOL.getRoot();
+        DefaultMutableTreeNode c
+                        = new DefaultMutableTreeNode(new Carpeta(jTFNombreC.getText(), "12345"));
+        DefaultMutableTreeNode a
+                        = new DefaultMutableTreeNode();      
+        c.add(a);
+        raiz.add(c);
     }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jBtnAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAMouseClicked
+        // TODO add your handling code here:
+        DefaultTreeModel modeloARBOL
+                    = (DefaultTreeModel) jTree1.getModel();
+            DefaultMutableTreeNode raiz
+                    = (DefaultMutableTreeNode) modeloARBOL.getRoot();
+        DefaultMutableTreeNode a
+                        = new DefaultMutableTreeNode(new Archivo(jTFNombreA.getText(), "1235", (String)jCBExtension.getSelectedItem(), Double.valueOf(jTFTamano.getText())));
+               
+                raiz.add(a);
+    }//GEN-LAST:event_jBtnAMouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+        jFCarpeta.setVisible(true);
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        // TODO add your handling code here:
+        jFArchivo.setVisible(true);
+    }//GEN-LAST:event_jButton5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -357,6 +412,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jBtnMiUnidad;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -378,7 +434,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
-    DefaultTreeModel MU = (DefaultTreeModel) jTree1.getModel();
-    DefaultTreeModel DES = (DefaultTreeModel) jTree1.getModel();
-    DefaultTreeModel PAP = (DefaultTreeModel) jTree1.getModel();
+    DefaultTreeModel MU;
+    DefaultTreeModel DES;
+    DefaultTreeModel PAP;
 }
