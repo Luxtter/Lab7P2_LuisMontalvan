@@ -4,6 +4,7 @@
  */
 package lab7p2_luismontalvan;
 
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -13,7 +14,7 @@ import javax.swing.tree.DefaultTreeModel;
  * @author luism
  */
 public class Main extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Main
      */
@@ -316,17 +317,42 @@ public class Main extends javax.swing.JFrame {
 
     private void jBtnMiUnidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnMiUnidadMouseClicked
         // TODO add your handling code here:
-        jTree1.setModel(MU);
+        jTree1.removeAll();
+        DefaultTreeModel MU = (DefaultTreeModel)jTree1.getModel();
+        int nodes = MU.getChildCount(jTree1);
+        for (int i = 0; i < nodes; i++) {
+            String node = (String)MU.getChild(jTree1, i);
+            MU.removeNodeFromParent((DefaultMutableTreeNode)node);
+        }
+        
+        MU.reload();
+        DefaultMutableTreeNode raiz
+                    = (DefaultMutableTreeNode) MU.getRoot();
+        for (int i = 0; i < carpeta.size(); i++) {
+            DefaultMutableTreeNode c
+                        = new DefaultMutableTreeNode(carpeta.get(i));
+            DefaultMutableTreeNode a
+                        = new DefaultMutableTreeNode();
+            c.add(a);
+            raiz.add(c);
+            
+        }
+        for (int i = 0; i < archivo.size(); i++) {
+            DefaultMutableTreeNode a
+                        = new DefaultMutableTreeNode(archivo.get(i));
+            raiz.add(a);
+        }
+        MU.reload();
     }//GEN-LAST:event_jBtnMiUnidadMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        jTree1.setModel(DES);
+        
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        jTree1.setModel(PAP);
+        
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jTFNombreCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNombreCActionPerformed
@@ -335,28 +361,33 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
         // TODO add your handling code here:
-        DefaultTreeModel modeloARBOL
-                    = (DefaultTreeModel) jTree1.getModel();
+        carpeta.add(new Carpeta(jTFNombreC.getText(), "12345"));
+        int pos = carpeta.size()-1;
+        DefaultTreeModel MU= (DefaultTreeModel) jTree1.getModel();
+                 
             DefaultMutableTreeNode raiz
-                    = (DefaultMutableTreeNode) modeloARBOL.getRoot();
+                    = (DefaultMutableTreeNode) MU.getRoot();
         DefaultMutableTreeNode c
-                        = new DefaultMutableTreeNode(new Carpeta(jTFNombreC.getText(), "12345"));
+                        = new DefaultMutableTreeNode(carpeta.get(pos));
         DefaultMutableTreeNode a
                         = new DefaultMutableTreeNode();      
         c.add(a);
         raiz.add(c);
+        MU.reload();
     }//GEN-LAST:event_jButton7MouseClicked
 
     private void jBtnAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAMouseClicked
         // TODO add your handling code here:
-        DefaultTreeModel modeloARBOL
-                    = (DefaultTreeModel) jTree1.getModel();
+        archivo.add(new Archivo(jTFNombreA.getText(), "1235", (String)jCBExtension.getSelectedItem(), Double.valueOf(jTFTamano.getText())));
+        int pos = archivo.size()-1;
+        DefaultTreeModel MU= (DefaultTreeModel) jTree1.getModel();
             DefaultMutableTreeNode raiz
-                    = (DefaultMutableTreeNode) modeloARBOL.getRoot();
+                    = (DefaultMutableTreeNode) MU.getRoot();
         DefaultMutableTreeNode a
-                        = new DefaultMutableTreeNode(new Archivo(jTFNombreA.getText(), "1235", (String)jCBExtension.getSelectedItem(), Double.valueOf(jTFTamano.getText())));
+                        = new DefaultMutableTreeNode(archivo.get(pos));
                
                 raiz.add(a);
+                MU.reload();
     }//GEN-LAST:event_jBtnAMouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
@@ -434,7 +465,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
-    DefaultTreeModel MU;
-    DefaultTreeModel DES;
-    DefaultTreeModel PAP;
+    
+    ArrayList MU = new ArrayList();
+    ArrayList DES = new ArrayList();
+    ArrayList PAP = new ArrayList();
+    ArrayList archivo = new ArrayList();
+    ArrayList carpeta = new ArrayList();
 }
